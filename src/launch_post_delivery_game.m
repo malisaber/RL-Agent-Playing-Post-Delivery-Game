@@ -1,5 +1,6 @@
 function launch_post_delivery_game(choice)
 
+clc;
 project_root = fileparts(fileparts(mfilename('fullpath')));
 addpath(genpath(project_root));
 
@@ -14,15 +15,16 @@ end
 
 switch choice
 	case 1
-		run(fullfile(project_root, "src", "tabular", "run_monte_carlo_control.m"));
+		run(fullfile(project_root, "src", "monte-carlo", "run_monte_carlo_control.m"));
 	case 2
-		run(fullfile(project_root, "src", "tabular", "run_td_control.m"));
+		run(fullfile(project_root, "src", "temporal-difference", "run_td_control.m"));
 	case 3
-		run(fullfile(project_root, "src", "dqn", "run_dqn_control.m"));
+		run(fullfile(project_root, "src", "deep-q-network", "run_dqn_control.m"));
 	case 0
 		return;
 	otherwise
 		error("Unknown launcher choice. Use 0, 1, 2, or 3.");
 end
 
+launch_post_delivery_game;
 end

@@ -11,8 +11,7 @@ This repo combines three related reinforcement learning projects into one clean 
 The same delivery environment is reused across the stages, so the project reads as one progression from tabular RL to deep RL.
 
 ## Overview
-
-![Combined overview collage](assets/figures/overview-collage.png)
+![Demo](results/deep-q-network/dqn/DQNSimulation_1.gif)
 
 ## What It Does
 
@@ -33,35 +32,72 @@ Across the project, you will find:
 .
 |-- src/
 |   |-- launch_post_delivery_game.m
-|   |-- shared/
-|   |   |-- clip_to_bounds.m
-|   |   `-- build_post_delivery_tabular_world.m
-|   |-- tabular/
-|   |   |-- PostDeliveryTabularEnv.m
-|   |   |-- on_policy_control.m
-|   |   |-- off_policy_control.m
-|   |   |-- sarsa_control.m
-|   |   |-- q_learning_control.m
-|   |   |-- n_step_sarsa_control.m
-|   |   |-- n_step_q_learning_control.m
-|   |   |-- run_monte_carlo_control.m
-|   |   `-- run_td_control.m
-|   `-- dqn/
-|       |-- PostDeliveryDqnEnv.m
-|       |-- DqnNetwork.m
-|       |-- calc_dqn_gradients.m
-|       |-- select_q_values.m
-|       |-- train_dqn.m
-|       |-- run_dqn_control.m
-|       |-- data.mat
-|       |-- data_backup.mat
-|       `-- Backup/
-|-- archive/
-|   |-- HW3/
-|   |-- HW4/
-|   `-- HW5/
-|-- assets/
-|   `-- figures/
+|   |-- deep-q-network/
+|	|	|-- Calc_grad.m
+|	|	|-- Network.m
+|	|	|-- clip.m
+|	|	|-- data.mat			# pre-trained network 
+|	|	|-- dqn_control.m
+|	|	|-- dqn_post_delivery_environment.m
+|	|	|-- run_dqn_control.m 
+|	|	`-- select.m
+|   |-- monte-carlo/
+|	|	|-- build_monte_carlo_dynamics.m
+|	|	|-- clip.m
+|	|	|-- mc_post_delivery_environment.m
+|	|	|-- off_policy_control.m
+|	|	|-- on_policy_control.m
+|	|	`-- run_monte_carlo_control.m
+|   `-- temporal-difference/
+|		|-- Q_Learning_control.m
+|		|-- SARSA_control.m
+|		|-- build_temporal_difference_dynamics.m
+|		|-- clip.m
+|		|-- n_QL_control.m
+|		|-- n_SARSA_control.m
+|		|-- run_td_control.m
+|		`-- td_post_delivery_environment.m
+|-- results/
+|	|-- deep-q-network/
+|	|	|-- dqn/
+|	|	|	|-- # Generated figures 
+|	|	|	`-- # Generated simulations
+|	|	`-- Comparison.jpg
+|	|-- monte-carlo/
+|	|	|-- advanced_on_policy/
+|	|	|	|-- # Generated figures 
+|	|	|	`-- # Generated simulations
+|	|	|-- off_policy/
+|	|	|	|-- # Generated figures 
+|	|	|	`-- # Generated simulations
+|	|	|-- on_policy
+|	|	|	|-- # Generated figures 
+|	|	|	`-- # Generated simulations
+|	|	`-- Comparison.jpg		# cpmparison of different MC control methods
+|	`-- temporal-difference/
+|		|-- n-QL
+|		|	|-- # Generated figures 
+|		|	`-- # Generated simulations
+|		|-- n-SARSA
+|		|	|-- # Generated figures 
+|		|	`-- # Generated simulations
+|		|-- QL
+|		|	|-- # Generated figures 
+|		|	`-- # Generated simulations
+|		|-- SARSA
+|		|	|-- # Generated figures 
+|		|	`-- # Generated simulations
+|		`-- Comparison.jpg		# cpmparison of different TD control methods
+|-- reports/
+|	|-- dqn-Report/
+|	|	|-- pics/
+|	|	`-- dqn_report.tex
+|	|-- mc-Report/
+|	|	|-- pics/
+|	|	`-- mc_report.tex
+|	`-- td-Report/
+|		|-- pics/
+|		`-- td_report.tex
 |-- README.md
 `-- LICENSE
 ```
@@ -70,9 +106,9 @@ Across the project, you will find:
 
 | Experiment | Script |
 | --- | --- |
-| Monte Carlo control | `src/tabular/run_monte_carlo_control.m` |
-| TD control | `src/tabular/run_td_control.m` |
-| DQN control | `src/dqn/run_dqn_control.m` |
+| Monte Carlo control | `src/monte-carlo/run_monte_carlo_control.m` |
+| TD control | `src/temporal-difference/run_td_control.m` |
+| DQN control | `src/deep-q-network/run_dqn_control.m` |
 | Launcher | `src/launch_post_delivery_game.m` |
 
 ## Figures
@@ -81,17 +117,17 @@ The repository includes saved results from the original runs.
 
 ### Monte Carlo Control
 
-![HW3 policy comparison](archive/HW3/pics/comp.PNG)
+![HW3 policy comparison](results/monte-calro/Comparison.jpg)
 
 ### TD Control
 
-![HW4 control comparison](archive/HW4/pics/Comp.jpg)
+![HW4 control comparison](results/tempolar-difference/Comparison.jpg)
 
 ### DQN Control
 
-![HW5 network](archive/HW5/pics/net.jpg)
+![HW5 network](results/deep-q-network/dqn/net.jpg)
 
-![HW5 average returns](archive/HW5/pics/Ave_ret.jpg)
+![HW5 average returns](results/deep-q-network/dqn/Ave_ret.jpg)
 
 ## How To Run
 
@@ -101,11 +137,6 @@ The project is MATLAB-based.
 2. Run `src/launch_post_delivery_game.m` to choose an experiment, or run a specific script directly.
 3. The launcher and each entry point add the full `src/` tree to the MATLAB path automatically.
 
-## Notes
-
-- `HW3` and `HW4` now share a single tabular environment builder in `src/shared/build_post_delivery_tabular_world.m`.
-- `HW5` uses its own DQN-specific environment and neural network implementation.
-- The original homework folders are preserved under `archive/` so the cleaned root stays focused on source code.
 
 ## License
 
